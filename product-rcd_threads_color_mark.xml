@@ -18,7 +18,7 @@
 	<templates>
 	</templates>
 	<plugins>
-		<plugin active="1" executionorder="5">
+		<plugin active="1" executionorder="10">
 			<title>Mark thread</title>
 			<hookname>threadbit_display</hookname>
 			<phpcode><![CDATA[$thread_title = $thread['threadtitle'];
