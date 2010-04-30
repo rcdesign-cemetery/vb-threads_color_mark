@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="rcd_threads_color_mark" active="1">
+	<title>Threads Color Mark</title>
+	<description />
+	<version>0.1</version>
+	<url />
+	<versioncheckurl />
+	<apm_releasedate>0</apm_releasedate>
+	<apm_author />
+	<apm_relatedurl />
+	<apm_extrainfo />
+	<apm_extraedit />
+	<dependencies>
+	</dependencies>
+	<codes>
+	</codes>
+	<templates>
+	</templates>
+	<plugins>
+		<plugin active="1" executionorder="5">
+			<title>Mark thread</title>
+			<hookname>threadbit_display</hookname>
+			<phpcode><![CDATA[$thread_title = $thread['threadtitle'];
+$thread['threadtitle'] = '';
+$open = (0 == $thread['open']);
+$stick = (1 == $thread['sticky']);
+$ignore_pinned = (bool)$vbulletin->options['tcm_ignore_pinned'];
+if ($stick)
+{
+    $thread['threadtitle'] = $vbulletin->options['tcm_html_pre_stick'];
+}
+if ($open and !($stick and $ignore_pinned))
+{
+    $thread['threadtitle'] .= $vbulletin->options['tcm_html_pre_close'];
+}
+$thread['threadtitle'] .= $thread_title;
+if ($open and !($stick and $ignore_pinned))
+{
+    $thread['threadtitle'] .= $vbulletin->options['tcm_html_post_close'];
+}
+if ($stick)
+{
+    $thread['threadtitle'] .= $vbulletin->options['tcm_html_post_stick'];
+}
+unset($thread_title, $open, $stick, $ignore_pinned);]]></phpcode>
+		</plugin>
+	</plugins>
+	<phrases>
+		<phrasetype name="vBulletin Settings" fieldname="vbsettings">
+			<phrase name="setting_tcm_html_post_close_desc" date="1272590776" username="Vitaly" version="0.1"><![CDATA[Visual mark closed thread (END).<br />
+HTML code to insert after thread title.]]></phrase>
+			<phrase name="setting_tcm_html_post_close_title" date="1272590776" username="Vitaly" version="0.1"><![CDATA[Html after closed thread title]]></phrase>
+			<phrase name="setting_tcm_html_post_stick_desc" date="1272590795" username="Vitaly" version="0.1"><![CDATA[Visual mark sticky thread (END).<br />
+HTML code to insert after thread title.]]></phrase>
+			<phrase name="setting_tcm_html_post_stick_title" date="1272590795" username="Vitaly" version="0.1"><![CDATA[Html after sticky thread]]></phrase>
+			<phrase name="setting_tcm_html_pre_close_desc" date="1272590785" username="Vitaly" version="0.1"><![CDATA[Visual mark closed thread (START).<br />
+HTML code to insert before thread title.]]></phrase>
+			<phrase name="setting_tcm_html_pre_close_title" date="1272590785" username="Vitaly" version="0.1"><![CDATA[Html before closed thread]]></phrase>
+			<phrase name="setting_tcm_html_pre_stick_desc" date="1272590755" username="Vitaly" version="0.1"><![CDATA[Visual mark sticky thread (START).<br />
+HTML code to insert before thread title.]]></phrase>
+			<phrase name="setting_tcm_html_pre_stick_title" date="1272590755" username="Vitaly" version="0.1"><![CDATA[Html before sticky thread]]></phrase>
+			<phrase name="setting_tcm_ignore_pinned_desc" date="1272590666" username="Vitaly" version=""><![CDATA[If thread is sticky & closed, do not use "closed thread" markup.]]></phrase>
+			<phrase name="setting_tcm_ignore_pinned_title" date="1272590630" username="Vitaly" version=""><![CDATA[Ignore sticky threads]]></phrase>
+			<phrase name="settinggroup_rcd_threads_color_mark" date="1272433531" username="varnak" version="0.1"><![CDATA[Threads Color Mark]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="rcd_threads_color_mark" displayorder="65535">
+			<setting varname="tcm_html_pre_stick" displayorder="10">
+				<datatype>free</datatype>
+				<defaultvalue><![CDATA[<font color="brown">]]></defaultvalue>
+			</setting>
+			<setting varname="tcm_html_post_stick" displayorder="20">
+				<datatype>free</datatype>
+				<defaultvalue><![CDATA[</font>]]></defaultvalue>
+			</setting>
+			<setting varname="tcm_html_pre_close" displayorder="30">
+				<datatype>free</datatype>
+				<defaultvalue><![CDATA[<font color="#808080">]]></defaultvalue>
+			</setting>
+			<setting varname="tcm_html_post_close" displayorder="40">
+				<datatype>free</datatype>
+				<defaultvalue><![CDATA[</font>]]></defaultvalue>
+			</setting>
+			<setting varname="tcm_ignore_pinned" displayorder="50">
+				<datatype>free</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+		</settinggroup>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<templateedits>
+	</templateedits>
+</product>
