@@ -2,48 +2,37 @@
 
 <product productid="rcd_threads_color_mark" active="1">
 	<title>Threads Color Mark</title>
-	<description />
+	<description><![CDATA[Adds colors to sticky & closed threads.]]></description>
 	<version>0.1</version>
-	<url />
-	<versioncheckurl />
-	<apm_releasedate>0</apm_releasedate>
-	<apm_author />
-	<apm_relatedurl />
-	<apm_extrainfo />
-	<apm_extraedit />
+	<url><![CDATA[http://www.vbulletin.org/forum/misc.php?do=producthelp&pid=rcd_threads_color_mark]]></url>
+	<versioncheckurl><![CDATA[http://www.vbulletin.org/forum/misc.php?do=productcheck&pid=rcd_threads_color_mark]]></versioncheckurl>
+	<apm_releasedate></apm_releasedate>
+	<apm_author></apm_author>
+	<apm_relatedurl></apm_relatedurl>
+	<apm_extrainfo></apm_extrainfo>
+	<apm_extraedit></apm_extraedit>
 	<dependencies>
 	</dependencies>
 	<codes>
 	</codes>
 	<templates>
 	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
 	<plugins>
 		<plugin active="1" executionorder="10">
 			<title>Mark thread</title>
 			<hookname>threadbit_display</hookname>
-			<phpcode><![CDATA[$thread_title = $thread['threadtitle'];
-$thread['threadtitle'] = '';
-$open = (0 == $thread['open']);
-$stick = (1 == $thread['sticky']);
-$ignore_pinned = (bool)$vbulletin->options['tcm_ignore_pinned'];
-if ($stick)
+			<phpcode><![CDATA[if (1 == $thread['sticky'])
 {
-    $thread['threadtitle'] = $vbulletin->options['tcm_html_pre_stick'];
+    $thread['threadtitle'] = $vbulletin->options['tcm_html_pre_stick'] . $thread['threadtitle'] . $vbulletin->options['tcm_html_post_stick'];
 }
-if ($open and !($stick and $ignore_pinned))
+else if (0 == $thread['open'])
 {
-    $thread['threadtitle'] .= $vbulletin->options['tcm_html_pre_close'];
-}
-$thread['threadtitle'] .= $thread_title;
-if ($open and !($stick and $ignore_pinned))
-{
-    $thread['threadtitle'] .= $vbulletin->options['tcm_html_post_close'];
-}
-if ($stick)
-{
-    $thread['threadtitle'] .= $vbulletin->options['tcm_html_post_stick'];
-}
-unset($thread_title, $open, $stick, $ignore_pinned);]]></phpcode>
+    $thread['threadtitle'] = $vbulletin->options['tcm_html_pre_close'] . $thread['threadtitle'] . $vbulletin->options['tcm_html_post_close'];
+}]]></phpcode>
 		</plugin>
 	</plugins>
 	<phrases>
@@ -60,8 +49,6 @@ HTML code to insert before thread title.]]></phrase>
 			<phrase name="setting_tcm_html_pre_stick_desc" date="1272590755" username="Vitaly" version="0.1"><![CDATA[Visual mark sticky thread (START).<br />
 HTML code to insert before thread title.]]></phrase>
 			<phrase name="setting_tcm_html_pre_stick_title" date="1272590755" username="Vitaly" version="0.1"><![CDATA[Html before sticky thread]]></phrase>
-			<phrase name="setting_tcm_ignore_pinned_desc" date="1272590666" username="Vitaly" version=""><![CDATA[If thread is sticky & closed, do not use "closed thread" markup.]]></phrase>
-			<phrase name="setting_tcm_ignore_pinned_title" date="1272590630" username="Vitaly" version=""><![CDATA[Ignore sticky threads]]></phrase>
 			<phrase name="settinggroup_rcd_threads_color_mark" date="1272433531" username="varnak" version="0.1"><![CDATA[Threads Color Mark]]></phrase>
 		</phrasetype>
 	</phrases>
@@ -82,11 +69,6 @@ HTML code to insert before thread title.]]></phrase>
 			<setting varname="tcm_html_post_close" displayorder="40">
 				<datatype>free</datatype>
 				<defaultvalue><![CDATA[</font>]]></defaultvalue>
-			</setting>
-			<setting varname="tcm_ignore_pinned" displayorder="50">
-				<datatype>free</datatype>
-				<optioncode>yesno</optioncode>
-				<defaultvalue>1</defaultvalue>
 			</setting>
 		</settinggroup>
 	</options>

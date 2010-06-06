@@ -9,6 +9,7 @@ Installation:
 1. Import protuct
 2. ACP -> Threads Color Mark -> change markup if needed.
 
-Not yet released at vborg.
+Released at vborg:
+http://www.vbulletin.org/forum/misc.php?do=producthelp&pid=rcd_threads_color_mark
 
 
